@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "416580305302",
+    "project_id": "advance-8801e",
+    "storage_bucket": "advance-8801e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:416580305302:android:fe068f2f2290274fd95db7",
+        "android_client_info": {
+          "package_name": "com.example.advance_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "416580305302-e6hri2uonm8a8igltrvvrgdfumgo5ujn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCQJKtQad6tQ4QAjTzrCJ-5x0Er9zTXX_I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "416580305302-e6hri2uonm8a8igltrvvrgdfumgo5ujn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
