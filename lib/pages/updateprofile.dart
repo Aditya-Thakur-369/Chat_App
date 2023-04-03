@@ -208,9 +208,12 @@ class _updateprofileState extends State<updateprofile> {
               ),
               ElevatedButton(
                 child: const Text("Update"),
-                style: const ButtonStyle(
-                    padding: MaterialStatePropertyAll(EdgeInsets.only(
-                        top: 13, bottom: 13, left: 140, right: 140))),
+                style: ElevatedButton.styleFrom(
+                    side: BorderSide(width: 1, color: Colors.brown),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30)),
+                    padding: EdgeInsets.only(
+                        top: 13, bottom: 13, left: 140, right: 140)),
                 onPressed: () {
                   // createuser();
                   update();

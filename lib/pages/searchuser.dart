@@ -1,8 +1,10 @@
 import 'dart:developer';
 import 'package:advance_app/pages/chatroom.dart';
+import 'package:advance_app/pages/profile.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import '../backend/Model/Auth.dart';
 import '../backend/Model/ChatModel.dart';
 import '../backend/Model/Model.dart';
@@ -42,6 +44,24 @@ class _searchuserState extends State<searchuser> {
       appBar: AppBar(
         elevation: 0.1,
         actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 10),
+            child: GestureDetector(
+              onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const profile(),
+                  )),
+              child: CircleAvatar(
+                backgroundImage: imgurl != null ? NetworkImage(imgurl!) : null,
+                child: imgurl == null
+                    ? SvgPicture.asset(
+                        "assets/images/login.svg",
+                      )
+                    : null,
+              ),
+            ),
+          ),
           Container(
             height: 45,
             width: MediaQuery.of(context).size.width - 110,
@@ -57,7 +77,7 @@ class _searchuserState extends State<searchuser> {
                           search.clear();
                         });
                       },
-                      icon: Icon(Icons.clear)),
+                      icon: const Icon(Icons.clear)),
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(30))),
               onChanged: (value) {
@@ -69,6 +89,7 @@ class _searchuserState extends State<searchuser> {
           ),
           IconButton(
               onPressed: () async {
+                FocusManager.instance.primaryFocus!.unfocus();
                 if (search.text.isNotEmpty) {
                   setState(() {
                     searchResult = null;
@@ -79,7 +100,7 @@ class _searchuserState extends State<searchuser> {
                   });
                 }
               },
-              icon: Icon(
+              icon: const Icon(
                 Icons.search_sharp,
                 size: 28,
               ))
@@ -91,7 +112,7 @@ class _searchuserState extends State<searchuser> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 15,
               ),
               searchResult != null
@@ -164,11 +185,11 @@ class _searchuserState extends State<searchuser> {
                                                     ? const Icon(Icons.person_4)
                                                     : null,
                                               ),
-                                              Divider(
+                                              const Divider(
                                                 thickness: 1,
                                                 color: Colors.black,
                                               ),
-                                              Align(
+                                              const Align(
                                                   alignment:
                                                       Alignment.centerLeft,
                                                   child: Text("Status .. ")),
@@ -183,7 +204,7 @@ class _searchuserState extends State<searchuser> {
                                                           .elementAt(index)
                                                           .brief ??
                                                       "No Status",
-                                                  style: TextStyle(
+                                                  style: const TextStyle(
                                                       fontSize: 20,
                                                       fontWeight:
                                                           FontWeight.w300),

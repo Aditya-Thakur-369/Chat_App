@@ -317,9 +317,12 @@ class signup extends StatelessWidget {
                   ),
                   ElevatedButton(
                     child: const Text("Sign Up"),
-                    style: ButtonStyle(
-                        padding: MaterialStatePropertyAll(EdgeInsets.only(
-                            top: 13, bottom: 13, left: 140, right: 140))),
+                    style: ElevatedButton.styleFrom(
+                        side: BorderSide(width: 1, color: Colors.brown),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30)),
+                        padding: EdgeInsets.only(
+                            top: 13, bottom: 13, left: 140, right: 140)),
                     onPressed: () {
                       createuser();
                     },

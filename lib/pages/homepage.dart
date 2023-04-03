@@ -58,18 +58,18 @@ class _homepageState extends State<homepage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-        floatingActionButton: FloatingActionButton(
-          shape: CircleBorder(),
-          onPressed: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => searchuser(),
-                ));
-          },
-          child: Icon(CupertinoIcons.add),
-        ),
+        // floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+        // floatingActionButton: FloatingActionButton(
+        //   shape: CircleBorder(),
+        //   onPressed: () {
+        //     Navigator.push(
+        //         context,
+        //         MaterialPageRoute(
+        //           builder: (context) => searchuser(),
+        //         ));
+        //   },
+        //   child: Icon(CupertinoIcons.add),
+        // ),
         appBar: AppBar(
           title: const Text("Advance"),
           actions: [
@@ -536,6 +536,7 @@ class _RecentChatCardState extends State<RecentChatCard> {
                   );
                 },
                 child: CircleAvatar(
+                  radius: 25,
                   backgroundImage: targetUser!.imgurl != null
                       ? NetworkImage(targetUser!.imgurl!)
                       : null,
@@ -553,8 +554,22 @@ class _RecentChatCardState extends State<RecentChatCard> {
               //         ? const Icon(Icons.person_3)
               //         : null),
             ),
-            title: Text("${targetUser!.fullname}"),
-            subtitle: Text("${widget.chatRoom.lastmessage}"),
+            title: Text(
+              "${targetUser!.fullname}",
+              style: TextStyle(
+                  fontSize: 20, fontWeight: FontWeight.bold, letterSpacing: 2),
+            ),
+            subtitle: widget.chatRoom.lastmessage == null
+                ? const Text("No Chat Till Now ",
+                    style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                        letterSpacing: 2))
+                : Text("${widget.chatRoom.lastmessage}",
+                    style: const TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                        letterSpacing: 2)),
             onTap: () {
               Navigator.push(
                   context,
@@ -566,7 +581,7 @@ class _RecentChatCardState extends State<RecentChatCard> {
                     ),
                   ));
             },
-          )
+            trailing: Text("New"))
         : Container(
             margin: const EdgeInsets.all(10),
             child: Shimmer.fromColors(

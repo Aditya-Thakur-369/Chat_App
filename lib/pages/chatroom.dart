@@ -129,6 +129,7 @@ class _chatroomState extends State<chatroom> {
 
                             return Column(children: [
                               BubbleSpecialThree(
+                                seen: true,
                                 text: "${chat.message}",
                                 color: self
                                     ? const Color(0xFFE8E8EE)
@@ -145,12 +146,16 @@ class _chatroomState extends State<chatroom> {
                                   alignment: self
                                       ? Alignment.centerRight
                                       : Alignment.bottomLeft,
-                                  child: Text(
-                                    "${chat.timeStamp!.hour}:${chat.timeStamp!.minute}",
-                                    style: TextStyle(
-                                        // color: Colors.white,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        right: 8, left: 8),
+                                    child: Text(
+                                      "${chat.timeStamp!.hour}:${chat.timeStamp!.minute}",
+                                      style: TextStyle(
+                                          // color: Colors.white,
 
-                                        fontSize: 10),
+                                          fontSize: 10),
+                                    ),
                                   ),
                                 ),
                               )

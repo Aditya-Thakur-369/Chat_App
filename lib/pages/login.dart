@@ -229,9 +229,13 @@ class login extends StatelessWidget {
                   ),
                   ElevatedButton(
                     child: const Text("Log In"),
-                    style: const ButtonStyle(
-                        padding: MaterialStatePropertyAll(EdgeInsets.only(
-                            top: 13, bottom: 13, left: 150, right: 150))),
+                    style: ElevatedButton.styleFrom(
+                        side: BorderSide(width: 1, color: Colors.brown),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30)),
+                        padding: EdgeInsets.only(
+                            top: 13, bottom: 13, left: 150, right: 150)
+                            ),
                     onPressed: () {
                       login();
                     },

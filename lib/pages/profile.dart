@@ -1,16 +1,12 @@
 import 'dart:io';
 import 'dart:developer';
-import 'package:image_cropper/image_cropper.dart';
 import 'package:advance_app/pages/updateprofile.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_database/firebase_database.dart';
-import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:firebase_storage/firebase_storage.dart%20';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
-import '../backend/Model/Model.dart';
 
 class profile extends StatefulWidget {
   const profile({super.key});
@@ -80,8 +76,8 @@ class _profileState extends State<profile> {
           "brief": brief.text,
           "briefTime": DateTime.now().millisecondsSinceEpoch
         })
-        .then((value) => ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text("Status Has Been Updated"))))
+        .then((value) => ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text("Status Has Been Updated"))))
         .onError((error, stackTrace) => ScaffoldMessenger.of(context)
             .showSnackBar(SnackBar(content: Text("$error"))));
   }
@@ -117,7 +113,7 @@ class _profileState extends State<profile> {
             .doc(FirebaseAuth.instance.currentUser!.email)
             .update({'imgurl': downloadUrl})
             .then((value) => ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text("Image Uploaded Successfully"))))
+                const SnackBar(content: Text("Image Uploaded Successfully"))))
             .onError((error, stackTrace) => ScaffoldMessenger.of(context)
                 .showSnackBar(SnackBar(content: Text("$error"))));
       } catch (e) {
@@ -147,7 +143,7 @@ class _profileState extends State<profile> {
 
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Profile")),
+      appBar: AppBar(title: Center(child: const Text("Profile"))),
       body: Padding(
         padding: const EdgeInsets.all(10.0),
         child: SingleChildScrollView(
@@ -254,27 +250,29 @@ class _profileState extends State<profile> {
                             onPressed: () {
                               updatebio();
                             },
-                            child: Text("Status"),
-                            style: const ButtonStyle(
-                                padding: MaterialStatePropertyAll(
-                                    EdgeInsets.only(
-                                        top: 13,
-                                        bottom: 13,
-                                        left: 50,
-                                        right: 50))),
+                            child: const Text("Status"),
+                            style: ElevatedButton.styleFrom(
+                                side: BorderSide(width: 1, color: Colors.brown),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(30)),
+                                padding: EdgeInsets.only(
+                                    top: 13, bottom: 13, left: 50, right: 50)),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 20,
                         ),
                         ElevatedButton(
                           onPressed: () {
                             removebio();
                           },
-                          child: Text("Remove"),
-                          style: const ButtonStyle(
-                              padding: MaterialStatePropertyAll(EdgeInsets.only(
-                                  top: 13, bottom: 13, left: 50, right: 50))),
+                          child: const Text("Remove"),
+                          style: ElevatedButton.styleFrom(
+                              side: BorderSide(width: 1, color: Colors.brown),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(30)),
+                              padding: EdgeInsets.only(
+                                  top: 13, bottom: 13, left: 50, right: 50)),
                         ),
                       ],
                     )
@@ -285,15 +283,28 @@ class _profileState extends State<profile> {
                 alignment: Alignment.bottomCenter,
                 child: ElevatedButton(
                   child: const Text("Update Profile"),
-                  style: const ButtonStyle(
-                      padding: MaterialStatePropertyAll(EdgeInsets.only(
-                          top: 10, bottom: 10, left: 120, right: 120))),
+
+                  style: ElevatedButton.styleFrom(
+                      side: BorderSide(width: 1, color: Colors.brown),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30)),
+                      padding: EdgeInsets.only(
+                          top: 13, bottom: 13, left: 120, right: 120)),
+
+                  // style: ElevatedButton.styleFrom(
+
+                  //   side: const BorderSide(
+
+                  //       width: 2,
+                  //       color: Colors.redAccent,
+                  //       style: BorderStyle.solid),
+                  // ),
                   onPressed: () {
                     // createuser();
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => updateprofile(),
+                          builder: (context) => const updateprofile(),
                         ));
                   },
                 ),
