@@ -137,19 +137,78 @@ class _searchuserState extends State<searchuser> {
                                 }
                               },
                               child: ListTile(
-                                leading: CircleAvatar(
-                                  backgroundImage:
-                                      searchResult!.elementAt(index).imgurl !=
-                                              null
-                                          ? NetworkImage(searchResult!
-                                              .elementAt(index)
-                                              .imgurl!)
-                                          : null,
-                                  child:
-                                      searchResult!.elementAt(index).imgurl ==
-                                              null
-                                          ? const Icon(Icons.person_4)
-                                          : null,
+                                leading: GestureDetector(
+                                  onTap: () {
+                                    showDialog(
+                                      context: context,
+                                      builder: (context) {
+                                        return AlertDialog(
+                                            content: Container(
+                                          height: 300,
+                                          child: Column(
+                                            children: [
+                                              CircleAvatar(
+                                                radius: 70,
+                                                backgroundImage: searchResult!
+                                                            .elementAt(index)
+                                                            .imgurl !=
+                                                        null
+                                                    ? NetworkImage(searchResult!
+                                                        .elementAt(index)
+                                                        .imgurl!)
+                                                    : null,
+                                                child: searchResult!
+                                                            .elementAt(index)
+                                                            .imgurl ==
+                                                        null
+                                                    ? const Icon(Icons.person_4)
+                                                    : null,
+                                              ),
+                                              Divider(
+                                                thickness: 1,
+                                                color: Colors.black,
+                                              ),
+                                              Align(
+                                                  alignment:
+                                                      Alignment.centerLeft,
+                                                  child: Text("Status .. ")),
+                                              Container(
+                                                height: 100,
+                                                width: 240,
+                                                decoration: BoxDecoration(
+                                                    shape: BoxShape.rectangle,
+                                                    border: Border.all()),
+                                                child: Text(
+                                                  searchResult!
+                                                          .elementAt(index)
+                                                          .brief ??
+                                                      "No Status",
+                                                  style: TextStyle(
+                                                      fontSize: 20,
+                                                      fontWeight:
+                                                          FontWeight.w300),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ));
+                                      },
+                                    );
+                                  },
+                                  child: CircleAvatar(
+                                    backgroundImage:
+                                        searchResult!.elementAt(index).imgurl !=
+                                                null
+                                            ? NetworkImage(searchResult!
+                                                .elementAt(index)
+                                                .imgurl!)
+                                            : null,
+                                    child:
+                                        searchResult!.elementAt(index).imgurl ==
+                                                null
+                                            ? const Icon(Icons.person_4)
+                                            : null,
+                                  ),
                                 ),
                                 title: Text(
                                     searchResult!.elementAt(index).fullname!),

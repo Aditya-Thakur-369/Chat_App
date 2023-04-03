@@ -41,6 +41,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.1"
+  chat_bubbles:
+    dependency: "direct main"
+    description:
+      name: chat_bubbles
+      sha256: "63703c22ba2e1938e17a396d0e1fdd368f935795c2d7779133a9dae786a3311a"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.4.0"
   clock:
     dependency: transitive
     description:
@@ -185,6 +193,46 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.2.1+25"
+  firebase_in_app_messaging:
+    dependency: "direct main"
+    description:
+      name: firebase_in_app_messaging
+      sha256: f9b69b773e86cfc47a523f7b5fc4e993a61a3b16885bc4b0e1ae89baeadf6799
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.7.0+16"
+  firebase_in_app_messaging_platform_interface:
+    dependency: transitive
+    description:
+      name: firebase_in_app_messaging_platform_interface
+      sha256: "0e17c3a5f6898fc8edb0b41fc69d69376651c722a4fc2a9d55c5e46ad6ec1a6a"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.2.1+35"
+  firebase_messaging:
+    dependency: "direct main"
+    description:
+      name: firebase_messaging
+      sha256: e82c99bcccf707db4d82ac3fb07be629a392c4cc2a6756aaf1a74c009114846f
+      url: "https://pub.dev"
+    source: hosted
+    version: "14.3.0"
+  firebase_messaging_platform_interface:
+    dependency: transitive
+    description:
+      name: firebase_messaging_platform_interface
+      sha256: "710bb139ff6e27fe47a0684ba88df4b7517a44d814dc6b7f54a2537568a82fcf"
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.2.16"
+  firebase_messaging_web:
+    dependency: transitive
+    description:
+      name: firebase_messaging_web
+      sha256: "66ece031cb17fb771cda4b3328858395fa48aa4c3b3e6a5d1bcaff928086cacd"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.2.17"
   firebase_storage:
     dependency: "direct main"
     description:
@@ -230,6 +278,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.9"
+  flutter_spinkit:
+    dependency: "direct main"
+    description:
+      name: flutter_spinkit
+      sha256: "77a2117c0517ff909221f3160b8eb20052ab5216107581168af574ac1f05dff8"
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.1.0"
   flutter_svg:
     dependency: "direct main"
     description:
@@ -448,6 +504,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.4"
+  shimmer:
+    dependency: "direct main"
+    description:
+      name: shimmer
+      sha256: "1f1009b5845a1f88f1c5630212279540486f97409e9fc3f63883e71070d107bf"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.0"
   sky_engine:
     dependency: transitive
     description: flutter

@@ -1,16 +1,22 @@
+import 'dart:developer';
+
 import 'package:advance_app/pages/homepage.dart';
 import 'package:advance_app/pages/login.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
+import '';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(const MyApp()); 
+  final fcmToken = await FirebaseMessaging.instance.getToken();
+  log(fcmToken.toString());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -27,7 +33,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: const MainPage(),
     );
-  } 
+  }
 }
 
 class MainPage extends StatelessWidget {
