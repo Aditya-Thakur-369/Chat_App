@@ -389,7 +389,7 @@ class _chatroomState extends State<chatroom> {
                           log(token.toString());
                           log(await FirebaseMessaging.instance.getToken() ??
                               "NaN");
-                          token = await FirebaseMessaging.instance.getToken();
+                          // token = await FirebaseMessaging.instance.getToken();
                           try {
                             http.Response response = await http.post(
                               Uri.parse('https://fcm.googleapis.com/fcm/send'),
