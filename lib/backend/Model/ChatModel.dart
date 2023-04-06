@@ -2,26 +2,32 @@
 import 'dart:convert';
 
 import 'package:collection/collection.dart';
+import 'package:flutter/foundation.dart';
 
 class ChatModel {
   String? sender;
   String? message;
-  DateTime? timeStamp;
+  String? timeStamp;
+  String? imgurl;
   ChatModel({
     this.sender,
     this.message,
     this.timeStamp,
+    this.imgurl,
   });
+  
 
   ChatModel copyWith({
     String? sender,
     String? message,
-    DateTime? timeStamp,
+    String? timeStamp,
+    String? imgurl,
   }) {
     return ChatModel(
       sender: sender ?? this.sender,
       message: message ?? this.message,
       timeStamp: timeStamp ?? this.timeStamp,
+      imgurl: imgurl ?? this.imgurl,
     );
   }
 
@@ -29,7 +35,8 @@ class ChatModel {
     return <String, dynamic>{
       'sender': sender,
       'message': message,
-      'timeStamp': timeStamp?.millisecondsSinceEpoch,
+      'timeStamp': timeStamp,
+      'imgurl': imgurl,
     };
   }
 
@@ -37,32 +44,38 @@ class ChatModel {
     return ChatModel(
       sender: map['sender'] != null ? map['sender'] as String : null,
       message: map['message'] != null ? map['message'] as String : null,
-      timeStamp: map['timeStamp'] != null
-          ? DateTime.fromMillisecondsSinceEpoch(map['timeStamp'] as int)
-          : null,
+      timeStamp: map['timeStamp'] != null ? map['timeStamp'].toString() : null,
+      imgurl: map['imgurl'] != null ? map['imgurl'] as String : null,
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory ChatModel.fromJson(String source) =>
-      ChatModel.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory ChatModel.fromJson(String source) => ChatModel.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
-  String toString() =>
-      'ChatModel(sender: $sender, message: $message, timeStamp: $timeStamp)';
+  String toString() {
+    return 'ChatModel(sender: $sender, message: $message, timeStamp: $timeStamp, imgurl: $imgurl)';
+  }
 
   @override
   bool operator ==(covariant ChatModel other) {
     if (identical(this, other)) return true;
-
-    return other.sender == sender &&
-        other.message == message &&
-        other.timeStamp == timeStamp;
+  
+    return 
+      other.sender == sender &&
+      other.message == message &&
+      other.timeStamp == timeStamp &&
+      other.imgurl == imgurl;
   }
 
   @override
-  int get hashCode => sender.hashCode ^ message.hashCode ^ timeStamp.hashCode;
+  int get hashCode {
+    return sender.hashCode ^
+      message.hashCode ^
+      timeStamp.hashCode ^
+      imgurl.hashCode;
+  }
 }
 
 class ChatRoomModel {

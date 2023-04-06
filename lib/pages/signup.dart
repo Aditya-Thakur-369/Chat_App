@@ -4,6 +4,7 @@ import 'package:advance_app/pages/homepage.dart';
 import 'package:advance_app/pages/login.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 
 import '../backend/Model/Model.dart';
@@ -52,7 +53,14 @@ class signup extends StatelessWidget {
             //     context,
             //     MaterialPageRoute(
             //       builder: (context) => homepage(),
-            //     )));9
+            //     )));
+          }).then((value) async {
+            final fcmToken = await FirebaseMessaging.instance.getToken();
+            FirebaseFirestore.instance
+                .collection("Users")
+                .doc(email.text)
+                .update({"Token": fcmToken});
+            log(fcmToken.toString());
           });
           if (context.mounted) {
             Navigator.pop(context);

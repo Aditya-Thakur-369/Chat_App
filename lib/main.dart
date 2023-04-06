@@ -4,20 +4,59 @@ import 'package:advance_app/pages/homepage.dart';
 import 'package:advance_app/pages/login.dart';
 import 'package:advance_app/pages/profile.dart';
 import 'package:advance_app/pages/searchuser.dart';
+import 'package:awesome_notifications/awesome_notifications.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
-import '';
+
+Future<void> handleBackgroundNotification(RemoteMessage message) async {
+  String? title = message.notification!.title;
+  String? body = message.notification!.body;
+  String? image = message.data['imgUrl'];
+  String? newsUrl = message.data['url'];
+
+  AwesomeNotifications().createNotification(
+    content: NotificationContent(
+      id: 01,
+      channelKey: 'noti',
+      title: title,
+      body: body,
+      wakeUpScreen: true,
+      notificationLayout: image != null
+          ? NotificationLayout.BigPicture
+          : NotificationLayout.Default,
+    ),
+  );
+}
 
 void main() async {
+  AwesomeNotifications().initialize(null, [
+    NotificationChannel(
+      channelKey: 'noti',
+      channelName: 'Notifications Channel',
+      channelDescription: 'Channel which will be used for notifications',
+      defaultColor: Colors.deepOrange.shade700,
+      ledColor: Colors.white,
+      importance: NotificationImportance.Max,
+      defaultRingtoneType: DefaultRingtoneType.Notification,
+    )
+  ]);
+
+  FirebaseMessaging.onBackgroundMessage(handleBackgroundNotification);
+
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  final fcmToken = await FirebaseMessaging.instance.getToken();
-  log(fcmToken.toString());
+  // final fcmToken = await FirebaseMessaging.instance.getToken();
+  // FirebaseFirestore.instance
+  //     .collection("Users")
+  //     .doc(FirebaseAuth.instance.currentUser!.email)
+  //     .update({"Token": fcmToken});
+  // log(fcmToken.toString());
   runApp(const MyApp());
 }
 
@@ -38,8 +77,51 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MainPage extends StatelessWidget {
+class MainPage extends StatefulWidget {
   const MainPage({super.key});
+
+  @override
+  State<MainPage> createState() => _MainPageState();
+}
+
+class _MainPageState extends State<MainPage> {
+  @override
+  void initState() {
+    super.initState();
+    FirebaseMessaging.onMessage.listen((event) {});
+
+    FirebaseMessaging.onMessage.listen((message) {
+      String? title = message.notification!.title;
+      String? body = message.notification!.body;
+      String? image = message.data['imgUrl'];
+      String? newsUrl = message.data['url'];
+
+      AwesomeNotifications().createNotification(
+        content: NotificationContent(
+          id: 01,
+          channelKey: 'noti',
+          title: title,
+          body: body,
+          wakeUpScreen: true,
+          notificationLayout: image != null
+              ? NotificationLayout.BigPicture
+              : NotificationLayout.Default,
+          bigPicture: image,
+        ),
+      );
+      // AwesomeNotifications().actionStream.listen((event) {
+      //   Uri? uri = Uri.tryParse(newsUrl ?? "");
+      // Navigator.pushReplacement(
+      //   context,
+      //   MaterialPageRoute(
+      //     builder: (_) => SplashScreen(
+      //       initialURI: uri,
+      //     ),
+      //   ),
+      // );
+      // });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {

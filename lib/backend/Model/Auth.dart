@@ -124,6 +124,28 @@ class Auth {
         .collection("chats")
         .doc(const Uuid().v1())
         .set(chat.toMap());
+
+  
+  }
+
+  static sendimg(String roomID, ChatModel imgurl) async {
+    final FirebaseFirestore store = FirebaseFirestore.instance;
+    final CollectionReference usersRef = store.collection("Users");
+    final CollectionReference chatRoomRef = store.collection("chatrooms");
+    // await chatRoomRef.doc(roomID).update({
+    //   'lastActive': "${DateTime.now().millisecondsSinceEpoch}",
+    //   'imgurl': imgurl
+    // });
+    await chatRoomRef
+        .doc(roomID)
+        .collection("chats")
+        .doc(const Uuid().v1())
+        .set({
+      "sender": FirebaseAuth.instance.currentUser!.email,
+      "message": null,
+      "imgurl": imgurl.imgurl,
+      "timeStamp": "${DateTime.now().millisecondsSinceEpoch}"
+    });
   }
 
   static Future<List<ChatRoomModel>> getRecentChat() async {

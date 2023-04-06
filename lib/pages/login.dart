@@ -3,7 +3,9 @@ import 'dart:developer';
 import 'package:advance_app/pages/forgetpassword.dart';
 import 'package:advance_app/pages/homepage.dart';
 import 'package:advance_app/pages/signup.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -25,6 +27,7 @@ class login extends StatelessWidget {
                   email: email.text, password: pass.text)
               .then((value) => const ScaffoldMessenger(
                   child: SnackBar(content: Text("Welcome To Advance App"))));
+
           // if (context.mounted) {
           //   Navigator.pop(context);
           // }
@@ -234,8 +237,7 @@ class login extends StatelessWidget {
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(30)),
                         padding: EdgeInsets.only(
-                            top: 13, bottom: 13, left: 150, right: 150)
-                            ),
+                            top: 13, bottom: 13, left: 150, right: 150)),
                     onPressed: () {
                       login();
                     },

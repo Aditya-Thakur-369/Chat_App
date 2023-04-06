@@ -101,6 +101,21 @@ class _drawertopState extends State<drawertop> {
                             ));
                       },
                       child: Text("View Profile"))),
+            ),
+            SizedBox(
+              height: 400,
+            ),
+            Divider(
+              indent: 7,
+              endIndent: 10,
+              thickness: 1,
+            ),
+            ListTile(
+              title: Text("Log Out"),
+              leading: Icon(Icons.logout_sharp),
+              onTap: () {
+                FirebaseAuth.instance.signOut();
+              },
             )
           ],
         ),

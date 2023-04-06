@@ -10,6 +10,7 @@ class Model {
   String? uid;
   String? brief;
   String? imgurl;
+  String? token;
   Model({
     this.email,
     this.fullname,
@@ -19,7 +20,9 @@ class Model {
     this.uid,
     this.brief,
     this.imgurl,
+    this.token,
   });
+   
 
   Model copyWith({
     String? email,
@@ -30,6 +33,7 @@ class Model {
     String? uid,
     String? brief,
     String? imgurl,
+    String? token,
   }) {
     return Model(
       email: email ?? this.email,
@@ -40,6 +44,7 @@ class Model {
       uid: uid ?? this.uid,
       brief: brief ?? this.brief,
       imgurl: imgurl ?? this.imgurl,
+      token: token ?? this.token,
     );
   }
 
@@ -53,6 +58,7 @@ class Model {
       'uid': uid,
       'brief': brief,
       'imgurl': imgurl,
+      'token': token,
     };
   }
 
@@ -66,6 +72,7 @@ class Model {
       uid: map['uid'] != null ? map['uid'] as String : null,
       brief: map['brief'] != null ? map['brief'] as String : null,
       imgurl: map['imgurl'] != null ? map['imgurl'] as String : null,
+      token: map['token'] != null ? map['token'] as String : null,
     );
   }
 
@@ -75,7 +82,7 @@ class Model {
 
   @override
   String toString() {
-    return 'Model(email: $email, fullname: $fullname, number: $number, address: $address, decp: $decp, uid: $uid, brief: $brief, imgurl: $imgurl)';
+    return 'Model(email: $email, fullname: $fullname, number: $number, address: $address, decp: $decp, uid: $uid, brief: $brief, imgurl: $imgurl, token: $token)';
   }
 
   @override
@@ -90,7 +97,8 @@ class Model {
       other.decp == decp &&
       other.uid == uid &&
       other.brief == brief &&
-      other.imgurl == imgurl;
+      other.imgurl == imgurl &&
+      other.token == token;
   }
 
   @override
@@ -102,10 +110,9 @@ class Model {
       decp.hashCode ^
       uid.hashCode ^
       brief.hashCode ^
-      imgurl.hashCode;
+      imgurl.hashCode ^
+      token.hashCode;
   }
-
-  
   }
 
 

@@ -1,12 +1,16 @@
+import 'dart:convert';
 import 'dart:io';
 import 'dart:developer';
 import 'package:advance_app/pages/updateprofile.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart%20';
 import 'package:flutter/material.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:http/http.dart' as http;
 
 class profile extends StatefulWidget {
   const profile({super.key});
@@ -16,7 +20,7 @@ class profile extends StatefulWidget {
 }
 
 class _profileState extends State<profile> {
-  String? imageUrl;
+  String? imageurl;
   String? email;
   String? fullname;
   String? number;
@@ -43,9 +47,9 @@ class _profileState extends State<profile> {
         number = data['number'];
         address = data['address'];
         decp = data['decp'];
-        imageUrl = data['imgurl'];
+        imageurl = data['imgurl'];
         datetime = data['briefTime'];
-        print(imageUrl.toString());
+        print(imageurl.toString());
         if (data['brief'] == null) {
           brief.text = " ";
         } else {
@@ -59,7 +63,7 @@ class _profileState extends State<profile> {
         setState(() {
           dur = d;
         });
-        if (d.inMinutes > 2) {
+        if (d.inHours > 24) {
           removebio();
         }
       } else {}
@@ -123,7 +127,7 @@ class _profileState extends State<profile> {
       }
       // -------------------------------------------------------------
       setState(() {
-        imageUrl = downloadUrl;
+        imageurl = downloadUrl;
       });
     } else {
       print('No Image Path Received');
@@ -143,6 +147,39 @@ class _profileState extends State<profile> {
 
   Widget build(BuildContext context) {
     return Scaffold(
+      // floatingActionButton: FloatingActionButton(onPressed: () async {
+      //   await Future.delayed(const Duration(seconds: 2));
+      //   try {
+      //     http.Response response = await http.post(
+      //       Uri.parse('https://fcm.googleapis.com/fcm/send'),
+      //       headers: <String, String>{
+      //         'Content-Type': 'application/json; charset=UTF-8',
+      //         'Authorization':
+      //             'key=AAAAYP4fAZY:APA91bEv54sdYCDVVACt2X98SmN5KbdM8sn2lKiYTK0IpoGiJpRlm25IpbSNnGuwCbeUa4Sz4SbPik02FfBPDIqg0OC5Umu8H5VTv_Jjyq_clW7H7lxnw7q64l3rSMLamk4Wwb0IXLT8',
+      //       },
+      //       body: jsonEncode(
+      //         <String, dynamic>{
+      //           'notification': <String, dynamic>{
+      //             'body': 'test notification from admin app',
+      //             'title': 'Hello 😋',
+      //           },
+      //           'priority': 'high',
+      //           'data': <String, dynamic>{
+      //             'imgUrl':
+      //                 'https://images.unsplash.com/photo-1680399524821-d4e6b225b0ee?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80',
+      //             'url': 'https://www.google.com/'
+      //           },
+      //           'to':
+      //               'c49JK9pcRGygqtr8ni_wGy:APA91bGkR-R5P5DYWst8e2il_NQ90_cO8Mk4_VteGfsIj74HLiJUUYRX1IGnesF_l6cXEV46YH6CF3xrV4we2LdOxLAZJ3t_BsNw5ZHrBrhjTD0p5KTDNdVR2tf119NIpbzJQBLD21Q_',
+      //         },
+      //       ),
+      //     );
+      //     response;
+      //     print("Sent Notification");
+      //   } catch (e) {
+      //     print(e.toString());
+      //   }
+      // }),
       appBar: AppBar(title: Center(child: const Text("Profile"))),
       body: Padding(
         padding: const EdgeInsets.all(10.0),
@@ -159,25 +196,40 @@ class _profileState extends State<profile> {
                     Align(
                       alignment: Alignment.centerLeft,
                       child: InkWell(
-                        onLongPress: () async {
-                          uploadImage();
-                        },
-                        child: Container(
+                          onLongPress: () async {
+                            uploadImage();
+                          },
+                          child: Container(
                             height: 110,
                             width: 110,
                             decoration: const BoxDecoration(
                                 shape: BoxShape.circle, color: Colors.grey),
                             child: CircleAvatar(
-                              backgroundImage: imageUrl != null
-                                  ? NetworkImage(imageUrl!)
+                              backgroundImage: imageurl != null
+                                  ? NetworkImage(imageurl!)
                                   : null,
-                              child: imageUrl == null
+                              child: imageurl == null
                                   ? SvgPicture.asset(
                                       "assets/images/login.svg",
                                     )
                                   : null,
-                            )),
-                      ),
+                            ),
+                          )
+                          // CachedNetworkImage(
+                          //     placeholder: (context, url) =>
+                          //         const CircularProgressIndicator(),
+                          //     imageUrl: imageurl!,
+                          //     imageBuilder: (context, ImageProvider) =>
+                          //         Container(
+                          //           height: 110,
+                          //           width: 110,
+                          //           decoration:
+                          //               BoxDecoration(shape: BoxShape.circle),
+                          //         ),
+                          //     cacheManager: CacheManager(Config(
+                          //         "Profile Image",
+                          //         stalePeriod: Duration(seconds: 30)))),
+                          ),
                     ),
                     Padding(
                         padding: const EdgeInsets.only(left: 20, bottom: 8),
